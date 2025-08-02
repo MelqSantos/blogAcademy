@@ -10,7 +10,7 @@ export class PersonRepository implements IPersonRepository {
     user_id,
   }: IPerson): Promise<IPerson | undefined> {
     const result = await database.clientInstance?.query(
-      'INSERT INTO person (name, birth, email, user_id) VALUES ($1, $2, $3, $4, $5) RETURNING *',
+      'INSERT INTO person (name, birth, email, user_id) VALUES ($1, $2, $3, $4) RETURNING *',
       [name, birth, email, user_id],
     )
 

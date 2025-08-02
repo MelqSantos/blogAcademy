@@ -13,8 +13,8 @@ export async function update(request: FastifyRequest, reply: FastifyReply) {
     title: z.string(),
     content: z.string(),
     subject: z.string(),
-    createdAt: z.coerce.date(),
-    updatedAt: z.coerce.date(),
+    createdAt: z.date().optional(),
+    updatedAt: z.date().default(() => new Date()),
     author_id: z.coerce.number().optional()
   })
 

@@ -5,7 +5,7 @@ export class Post implements IPost {
   title: string
   content: string
   subject: string
-  createdAt: Date
+  createdAt?: Date
   updatedAt: Date
   author_id?: number
 
