@@ -7,7 +7,7 @@ export async function searchPost(
   reply: FastifyReply,
 ) {
   const registerParamsSchema = z.object({
-    text: z.coerce.string(),
+    text: z.string(),
   })
 
   const { text } = registerParamsSchema.parse(request.params)

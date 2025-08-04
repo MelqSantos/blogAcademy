@@ -7,7 +7,7 @@ export async function findPost(
   reply: FastifyReply,
 ) {
   const registerParamsSchema = z.object({
-    id: z.coerce.string(),
+    id: z.string(),
   })
 
   const { id } = registerParamsSchema.parse(request.params)

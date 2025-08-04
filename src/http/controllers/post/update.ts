@@ -4,7 +4,7 @@ import { z } from 'zod'
 
 export async function update(request: FastifyRequest, reply: FastifyReply) {
   const registerParamsSchema = z.object({
-    id: z.coerce.string(),
+    id: z.string(),
   })
 
   const { id } = registerParamsSchema.parse(request.params)
