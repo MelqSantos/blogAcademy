@@ -5,12 +5,59 @@ import { update } from './update'
 import { findAllPosts } from './find-all-posts'
 import { deletePost } from './delete'
 import { searchPost } from './search-post'
+import { postSchemas } from '@/http/schemas/swagger/post-swagger'
 
 export async function postRoutes(app: FastifyInstance) {
-  app.get('/posts', findAllPosts)
-  app.get('/posts/:id', findPost)
-  app.get('/posts/search/:text', searchPost)
-  app.post('/posts', create)
-  app.put('/posts/:id', update)
-  app.delete('/posts/:id', deletePost)
+  app.get('/posts', {
+    schema: {
+      tags: ['Posts'],
+      summary: 'Buscar todos os posts'
+    },
+    handler: findAllPosts
+  });
+
+  app.get('/posts/:id', {
+    schema: {
+      tags: ['Posts'],
+      summary: 'Buscar post por ID',
+      params: postSchemas.postParams,
+    },
+    handler: findPost,
+  });
+
+  app.get('/posts/search/:text', {
+    schema: {
+      tags: ['Posts'],
+      summary: 'Buscar posts por texto',
+      params: postSchemas.searchParams,
+    },
+    handler: searchPost,
+  });
+
+  app.post('/posts', {
+    schema: {
+      tags: ['Posts'],
+      summary: 'Criar um post',
+      body: postSchemas.createPostBody,
+    },
+    handler: create,
+  });
+
+  app.put('/posts/:id', {
+    schema: {
+      tags: ['Posts'],
+      summary: 'Editar um post',
+      body: postSchemas.updatePostBody,
+    },
+    handler: update
+  });
+
+  app.delete('/posts/:id', {
+    schema: {
+      tags: ['Posts'],
+      summary: 'Deletar um post',
+      params: postSchemas.deleteParams,
+    },
+    handler: deletePost
+  });
 }
