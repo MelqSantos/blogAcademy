@@ -7,14 +7,14 @@ export async function searchPost(
   reply: FastifyReply,
 ) {
   const registerParamsSchema = z.object({
-    text: z.string(),
+    search: z.string(),
   })
 
-  const { text } = registerParamsSchema.parse(request.params)
+  const { search } = registerParamsSchema.parse(request.params)
 
   const searchPostUseCase = makeSearchPostUseCase()
 
-  const post = await searchPostUseCase.handler(text)
+  const post = await searchPostUseCase.handler(search)
 
   return reply.status(200).send(post)
 }

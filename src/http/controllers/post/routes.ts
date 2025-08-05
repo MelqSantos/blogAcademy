@@ -25,7 +25,7 @@ export async function postRoutes(app: FastifyInstance) {
     handler: findPost,
   });
 
-  app.get('/posts/search/:text', {
+  app.get('/posts/search/:search', {
     schema: {
       tags: ['Posts'],
       summary: 'Buscar posts por texto',

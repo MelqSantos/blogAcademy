@@ -151,7 +151,7 @@ GET /posts
 ### 🔹 Buscar Postagens por algum argumento 
 
 ```http
-GET /posts/search/{text}
+GET /posts/search/{search}
 ```
 
 ---

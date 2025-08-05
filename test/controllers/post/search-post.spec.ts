@@ -33,7 +33,7 @@ describe('searchPost controller', () => {
   it('deve retornar posts com status 200 quando texto válido for fornecido', async () => {
     const mockRequest = {
       params: {
-        text: 'álgebra'
+        search: 'álgebra'
       }
     } as any
 
@@ -47,7 +47,7 @@ describe('searchPost controller', () => {
   it('deve lançar erro se o texto da busca for inválido', async () => {
     const invalidRequest = {
       params: {
-        text: undefined
+        search: undefined
       }
     } as any
 

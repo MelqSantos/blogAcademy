@@ -20,10 +20,10 @@ export class PostRepository implements IPostRepository {
     return result?.rows[0] || null
   }
 
-  async findbyText(text: string): Promise<IPost[]> {
+  async findbyText(search: string): Promise<IPost[]> {
     const result = await database.clientInstance?.query<IPost>(
       `SELECT * FROM "post" WHERE title ILIKE $1 OR content ILIKE $1 OR subject ILIKE $1`,
-      [`%${text}%`],
+      [`%${search}%`],
     )
     return result?.rows || []
   }
