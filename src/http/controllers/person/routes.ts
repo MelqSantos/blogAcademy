@@ -7,7 +7,7 @@ export async function personRoutes(app: FastifyInstance) {
     schema: {
       tags: ['People'],
       summary: 'Buscar pessoa completa',
-      params: personSchemas.personCreate,
+      body: personSchemas.personCreate,
     },
     handler: create
   });

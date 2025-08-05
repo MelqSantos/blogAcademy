@@ -18,7 +18,7 @@ export async function userRoutes(app: FastifyInstance) {
     schema: {
       tags: ['Users'],
       summary: 'Criar usuário',
-      params: userSchemas.userCreate,
+      body: userSchemas.userCreate,
     },
     handler: create
   });
@@ -27,7 +27,7 @@ export async function userRoutes(app: FastifyInstance) {
     schema: {
       tags: ['Users'],
       summary: 'Logar com usuário',
-      params: userSchemas.userSignin,
+      body: userSchemas.userSignin,
     },
     handler: signin
   });
