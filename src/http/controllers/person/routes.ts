@@ -6,7 +6,7 @@ export async function personRoutes(app: FastifyInstance) {
   app.post('/person', {
     schema: {
       tags: ['People'],
-      summary: 'Buscar pessoa completa',
+      summary: 'Criar pessoa',
       body: personSchemas.personCreate,
     },
     handler: create

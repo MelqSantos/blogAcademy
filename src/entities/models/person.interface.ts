@@ -1,7 +1,7 @@
 export interface IPerson {
   id?: number
   name: string
-  birth: Date
+  birth: string | Date
   email: string
   user_id?: number
 }

@@ -4,8 +4,8 @@ export const createPostBodySchema = z.object({
   title: z.string(),
   content: z.string(),
   subject: z.string(),
-  createdAt: z.date().default(() => new Date()),
-  updatedAt: z.date().default(() => new Date()),
+  createdAt: z.coerce.date().default(() => new Date()),
+  updatedAt: z.coerce.date().default(() => new Date()),
   author_id: z.coerce.number().optional(),
 })
 
