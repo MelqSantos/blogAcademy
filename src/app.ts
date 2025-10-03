@@ -9,12 +9,17 @@ import { validateJwt } from './http/middlewares/jwt-validate'
 import { env } from './env'
 import swagger from '@fastify/swagger'
 import swaggerUi from '@fastify/swagger-ui'
+import cors from '@fastify/cors' // Importa o plugin
 
 export const app = fastify()
 
 app.register(fastifyJwt, {
   secret: env.JWT_SECRET,
   sign: { expiresIn: '10m' },
+})
+
+app.register(cors, {
+  origin: true, // Permite todas as origens. Você pode customizar conforme necessário.
 })
 
 // Swagger

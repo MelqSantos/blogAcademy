@@ -116,7 +116,7 @@ ADD CONSTRAINT fk_author_id FOREIGN KEY (author_id) REFERENCES person(id);
 A documentação é gerada via **Fastify Swagger**.
 
 - Após iniciar a aplicação, acesse:  
-  👉 [`http://localhost:3000/docs`](http://localhost:3000/docs)
+  👉 [`http://localhost:8080/docs`](http://localhost:8080/docs)
 
 ---
 

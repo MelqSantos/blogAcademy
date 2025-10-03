@@ -36,6 +36,7 @@
     "typescript": "5.4.5"
   },
   "dependencies": {
+    "@fastify/cors": "8.2.1",
     "@fastify/jwt": "8.0.0",
     "@fastify/swagger": "8.15.0",
     "@fastify/swagger-ui": "2.1.0",
