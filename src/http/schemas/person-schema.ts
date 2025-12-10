@@ -6,3 +6,11 @@ export const PersonCreateSchema = z.object({
   email: z.string().email(),
   user_id: z.coerce.number(),
 });
+
+export const PersonUserIdParamsSchema = z.object({
+  id_user: z.number(),
+});
+
+export const PersonRoleParamsSchema = z.object({
+  role: z.string(),
+});
