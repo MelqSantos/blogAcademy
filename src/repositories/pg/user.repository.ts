@@ -17,7 +17,7 @@ export class UserRepository implements IUserRepository {
     username,
     password,
     role
-  }: IUser): Promise<IUser | undefined> {
+  }: Omit<IUser, 'id'>): Promise<IUser | undefined> {
     const result = await database.clientInstance?.query<IUser>(
       `INSERT INTO "user" (username, password, role) VALUES ($1, $2, $3) RETURNING *`,
       [username, password, role],
