@@ -13,6 +13,16 @@ export class UserRepository implements IUserRepository {
     return result?.rows[0]
   }
 
+  async findAll(): Promise<IUser[] | undefined> {
+    const result = await database.clientInstance?.query<IUser>(
+      `SELECT u.id, u.username, u."role", p."name", p.email, p.birth
+        FROM "user" u 
+       LEFT JOIN person p ON u.id = p.user_id`,
+    )
+
+    return result?.rows || [];
+  }
+
   public async create({
     username,
     password,
@@ -22,6 +32,30 @@ export class UserRepository implements IUserRepository {
       `INSERT INTO "user" (username, password, role) VALUES ($1, $2, $3) RETURNING *`,
       [username, password, role],
     )
+
+    return result?.rows[0]
+  }
+
+  public async update(
+    userId: number,
+    data: Partial<Omit<IUser, 'id'>>,
+  ): Promise<IUser | undefined> {
+    const fields = Object.keys(data)
+      .map((key, index) => `"${key}" = $${index + 2}`)
+      .join(', ')
+
+    const values = Object.values(data)
+
+    if (fields.length === 0) {
+      return this.findWithPerson(userId)
+    }
+
+    const query = `UPDATE "user" SET ${fields} WHERE id = $1 RETURNING *`
+
+    const result = await database.clientInstance?.query<IUser>(query, [
+      userId,
+      ...values,
+    ])
 
     return result?.rows[0]
   }
@@ -36,5 +70,12 @@ export class UserRepository implements IUserRepository {
       [userId],
     )
     return result?.rows[0]
+  }
+
+  public async delete(userId: number): Promise<void> {
+    await database.clientInstance?.query(
+      `DELETE FROM "user" WHERE id = $1`,
+      [userId],
+    )
   }
 }

@@ -3,6 +3,9 @@ import { create } from './create'
 import { findUser } from './find-user'
 import { signin } from './signin'
 import { userSchemas } from '@/http/schemas/swagger/user-swagger'
+import { updateUser } from './update'
+import { deleteUser } from './delete'
+import { findAllUsers } from './find-all-users'
 
 export async function userRoutes(app: FastifyInstance) {
   app.get('/user/:id', {
@@ -12,6 +15,14 @@ export async function userRoutes(app: FastifyInstance) {
       params: userSchemas.findUser,
     },
     handler: findUser
+  });
+
+  app.get('/user', {
+    schema: {
+      tags: ['Users'],
+      summary: 'Buscar todos os usuários',
+    },
+    handler: findAllUsers
   });
 
   app.post('/user', {
@@ -31,4 +42,23 @@ export async function userRoutes(app: FastifyInstance) {
     },
     handler: signin
   });
+
+  app.put('/user/:id', {
+    schema: {
+      tags: ['Users'],
+      summary: 'Editar usuário e pessoa',
+      params: userSchemas.findUser,
+      body: userSchemas.userUpdate,
+    },
+    handler: updateUser,
+  })
+
+  app.delete('/user/:id', {
+    schema: {
+      tags: ['Users'],
+      summary: 'Deletar usuário e pessoa',
+      params: userSchemas.findUser,
+    },
+    handler: deleteUser,
+  })
 }

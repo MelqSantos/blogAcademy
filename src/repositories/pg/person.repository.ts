@@ -18,6 +18,32 @@ export class PersonRepository implements IPersonRepository {
     return result?.rows[0]
   }
 
+  async updateByUserId(
+    user_id: number,
+    data: Partial<Omit<IPerson, 'id' | 'user_id'>>,
+  ): Promise<IPerson | undefined> {
+    const fields = Object.keys(data)
+      .map((key, index) => `"${key}" = $${index + 2}`)
+      .join(', ')
+
+    const values = Object.values(data)
+
+    if (fields.length === 0) {
+      const person = await this.findWithUserByUserId(user_id)
+      if (person) return person
+      return undefined
+    }
+
+    const query = `UPDATE person SET ${fields} WHERE user_id = $1 RETURNING *`
+
+    const result = await database.clientInstance?.query<IPerson>(query, [
+      user_id,
+      ...values,
+    ])
+
+    return result?.rows[0]
+  }
+
   async findWithUserByUserId(
     user_id: number,
   ): Promise<(IPerson & IUser) | undefined> {
@@ -50,5 +76,12 @@ export class PersonRepository implements IPersonRepository {
       [role],
     )
     return result?.rows || []
+  }
+
+  async deleteByUserId(user_id: number): Promise<void> {
+    await database.clientInstance?.query(
+      'DELETE FROM person WHERE user_id = $1',
+      [user_id],
+    )
   }
 }

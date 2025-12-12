@@ -14,6 +14,14 @@ export const userCreateSchema = z.object({
   email: z.string().email(),
 });
 
+export const userUpdateSchema = z.object({
+  username: z.string().optional(),
+  role: z.string().optional(),
+  name: z.string().optional(),
+  birth: z.string().optional(),
+  email: z.string().email().optional(),
+});
+
 export const findUserSchema = z.object({
   id: z.coerce.number()
 });
