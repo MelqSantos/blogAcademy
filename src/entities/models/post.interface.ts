@@ -6,4 +6,5 @@ export interface IPost {
   createdAt?: Date
   updatedAt: Date
   author_id?: number
+  author?: string
 }

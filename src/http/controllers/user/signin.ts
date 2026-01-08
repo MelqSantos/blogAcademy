@@ -24,5 +24,5 @@ export async function signin(request: FastifyRequest, reply: FastifyReply) {
 
   const token = await reply.jwtSign({ username })
 
-  return reply.status(200).send({ token, role: user.role })
+  return reply.status(200).send({ token, role: user.role, id: user.id })
 }

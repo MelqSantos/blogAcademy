@@ -6,7 +6,11 @@ export class PostRepository implements IPostRepository {
 
   async findAll(): Promise<IPost[]> {
     const result = await database.clientInstance?.query<IPost>(
-      `SELECT * FROM "post"`,
+      `SELECT po.*, pe.name AS author
+         FROM "post" po
+         LEFT JOIN "user" u ON po.author_id = u.id
+         LEFT JOIN "person" pe ON u.id = pe.user_id
+         ORDER BY po.updatedat DESC`,
     )
 
     return result?.rows || []
